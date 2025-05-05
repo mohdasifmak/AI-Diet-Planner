@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    #dietForm { display: none; }
+  </style>
+</head>
+<body class="bg-light">
+  <div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2>Welcome, <%= name %>!</h2>
+      <button class="btn btn-primary" onclick="document.getElementById('dietForm').style.display='block'">Get Your Diet</button>
+    </div>
+
+
+<!-- Diet generation form (hidden initially) -->
+<form action="/dashboard/generate-diet" method="POST" class="border rounded p-4 bg-white mb-4" id="dietForm">
+    <div class="row">
+      <div class="col-md-3 mb-3">
+        <input type="number" name="age" class="form-control" placeholder="Age" required>
+      </div>
+      <div class="col-md-3 mb-3">
+        <input type="number" name="height" class="form-control" placeholder="Height (cm)" required>
+      </div>
+      <div class="col-md-3 mb-3">
+        <input type="number" name="weight" class="form-control" placeholder="Weight (kg)" required>
+      </div>
+      <div class="col-md-3 mb-3">
+        <input type="text" name="location" class="form-control" placeholder="Location" required>
+      </div>
+      <div class="col-md-3 mb-3">
+        <select name="gender" class="form-control" required>
+          <option value="">Select Gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
+      <div class="col-md-6 mb-3">
+        <input type="text" name="goals" class="form-control" placeholder="Your fitness goals (optional)">
+      </div>
+      <div class="col-md-6 mb-3">
+        <input type="text" name="healthRestrictions" class="form-control" placeholder="Any health issues or conditions">
+      </div>
+      <div class="col-md-12 mb-3">
+        <input type="text" name="dietaryRestrictions" class="form-control" placeholder="Any dietary restrictions (e.g., vegetarian, gluten-free)">
+      </div>
+    </div>
+    <button type="submit" class="btn btn-success">Generate Diet</button>
+  </form>
+  
+
+    <% if (diet) { %>
+      <div class="card p-3 shadow-sm mt-4">
+  <h4>Your 7 Day Diet Plan</h4>
+  <ul class="list-group mb-3">
+    <li class="list-group-item"><strong>Breakfast:</strong> <%= diet.dietPlan.breakfast %></li>
+    <li class="list-group-item"><strong>Lunch:</strong> <%= diet.dietPlan.lunch %></li>
+    <li class="list-group-item"><strong>Dinner:</strong> <%= diet.dietPlan.dinner %></li>
+    <% if (diet.dietPlan.snacks) { %>
+      <li class="list-group-item"><strong>Snacks:</strong> <%= diet.dietPlan.snacks %></li>
+    <% } %>
+  </ul>
+  <h6>Get Your Next Diet Plane After 7 Days</h6>
+</div>
+    <% } %>
+  </div>
+</body>
+</html>
